@@ -5,11 +5,12 @@
 @endsection
 
 @section('content')
-    <h1 id="info">スマホを縦向きにしてね</h1>
-    <h1>君の顔を見せて！</h1>
-    <div id="photoArea">
+    <h1 id="info">スマホを横向きにしてね</h1>
+    <h1>君の写真を載せて！</h1>
+    <div id="inputFile">
+      <input class="btn btn-default" type="file" name="name" value="">
     </div>
-    <div id="takePhoto">
-      <button  class="btn btn-default btn-lg"><span class="glyphicon glyphicon-camera"></span></button>
+    <div id="inputSubmit">
+      <input class="btn btn-default" type="submit" name="name" value="送信！">
     </div>
 @endsection

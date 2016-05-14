@@ -11,9 +11,17 @@
   margin-top: 15px;
 }
 
-#takePhoto{
-  text-align: center;
+#inputFile{
+  margin-top: 80px;
+}
+
+#inputSubmit{
   margin-top: 25px;
+  text-align: center;
+}
+
+#inputFile > input{
+  margin: 0 auto;
 }
 
 #info{
@@ -21,10 +29,6 @@
 }
 
 @media screen and (orientation: portrait) {
-
-}
-
-@media screen and (orientation: landscape) {
   #content *:not(#info){
     display: none;
   }
@@ -32,3 +36,5 @@
     display: block;
   }
 }
+
+@media screen and (orientation: landscape) {
