@@ -1,0 +1,15 @@
+body{
+}
+
+h1,.button{
+  text-align: center;
+}
+
+.content{
+  width: 100%;
+  margin-top: 100px;
+}
+.content > div{
+  width: 80%;
+  margin: 0 auto;
+}

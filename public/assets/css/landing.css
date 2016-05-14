@@ -1,0 +1,11 @@
+.buttons div,h1,.info{
+  text-align: center;
+}
+
+.info{
+  margin-top: 50px;
+}
+
+.buttons div{
+  margin-top: 25px;
+}

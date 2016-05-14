@@ -1,0 +1,13 @@
+#inputName{
+  width: 16em;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+#inputName > input{
+  width: 100%;
+}
+
+.button{
+  margin-top: 25px;
+}

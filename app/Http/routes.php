@@ -11,6 +11,14 @@
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
+});
+
+Route::get('/{view}', function ($view) {
+    return view($view);
 });

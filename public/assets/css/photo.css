@@ -1,0 +1,23 @@
+#photoArea{
+  background-color: red;
+  width: 280px;
+  height:360px;
+  margin: 0 auto;
+}
+
+.info{
+  display: none;
+  text-align: center;
+  margin-top: 15px;
+}
+
+#takePhoto{
+  text-align: center;
+  margin-top: 25px;
+}
+
+@media screen and (orientation: landscape) {
+  .info{
+    display: block;
+  }
+}
