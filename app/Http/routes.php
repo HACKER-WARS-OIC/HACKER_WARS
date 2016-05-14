@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Input;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +13,22 @@
 */
 
 Route::get('/', function () {
-    return view('book');
+    return view('landing');
 });
+
+Route::get('/be_hero', function () {
+    return view('photo');
+});
+
+Route::get('/input_name', function () {
+    return view('who');
+});
+
+Route::post('/question', 'UserController@set_hero');
+
+Route::post('/next_question', 'UserController@set_answer');
+
+Route::post('/select', 'UserController@set_name');
 
 Route::post('/test_print', 'UserController@test_print');
 

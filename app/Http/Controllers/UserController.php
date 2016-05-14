@@ -31,6 +31,52 @@ class UserController extends Controller
 		//ふっちーまち
 	}
 
+	public function set_name(){ 
+		$heros = DB::table('heros')->get();
+
+
+		session(['user_hero_id' => 1]);
+
+
+		if(Input::get('name')==""){
+			return view('landing');
+		}
+		session(['user_name' => Input::get('name')]);
+		$name = session('user_name');
+		return view('select')->with('name',$name)->with('heros',$heros);
+	}
+
+	public function set_hero(){ 
+		session(['user_hero_id' => Input::get('hero')]);
+		return view('question');
+	}
+
+	public function set_answer(){ 
+		session(['answer_count' => session('answer_count')+1]);
+
+		$point = preg_split("/[\s,]+/", Input::get('point'));
+		
+		if($point[0] == 'justice'){
+			session(['justice_point' => session('justice_point')+$point[1]]);
+		}
+
+		if($point[0] == 'save'){
+			session(['save_point' => session('save_point')+$point[1]]);
+		}
+
+		if(session('answer_count')>5){
+			
+			/*if(session('answer_count')>99){
+
+			} else{
+
+			}*/
+
+			return view('comic');
+		}
+		return view('question');
+	}
+
 	public function test_regi()
     {
     	//book登録予定処理
