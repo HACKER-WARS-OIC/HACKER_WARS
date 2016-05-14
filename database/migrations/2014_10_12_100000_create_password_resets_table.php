@@ -17,6 +17,8 @@ class CreatePasswordResetsTable extends Migration
             $table->string('token')->index();
             $table->timestamp('created_at');
         });
+
+        Schema::dropIfExists('password_resets');
     }
 
     /**
