@@ -15,7 +15,7 @@ class CreateFacePhotoTable extends Migration
         //
         Schema::create('face_photo', function (Blueprint $table) {
             $table->increments('id');
-            $table->binary('face_data')->nullable();
+            $table->string('face_data')->nullable();
             $table->string('user_name')->nullable();
 
         });

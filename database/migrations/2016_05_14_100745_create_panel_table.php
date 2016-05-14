@@ -15,11 +15,14 @@ class CreatePanelTable extends Migration
         //
         Schema::create('panel', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('story_id')->nullable();
-            $table->integer('background_id')->nullable();
-            $table->integer('hero_id')->nullable();
-            $table->integer('porsing_id')->nullable();
+            $table->integer('story_id')->nullable()->unsigned();
+            $table->integer('background_id')->nullable()->unsigned();
+            $table->integer('hero_id')->nullable()->unsigned();
+            $table->integer('porsing_id')->nullable()->unsigned();
             $table->string('main_text')->nullable();
+
+            $table->foreign('story_id')->references('id')->on('story');
+            $table->foreign('background_id')->references('id')->on('background_data');            
         });
     }
 
@@ -31,5 +34,6 @@ class CreatePanelTable extends Migration
     public function down()
     {
         //
+        Schema::drop('panel');
     }
 }

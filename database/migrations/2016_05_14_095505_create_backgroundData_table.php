@@ -15,7 +15,7 @@ class CreateBackgroundDataTable extends Migration
         //
         Schema::create('background_data', function (Blueprint $table) {
             $table->increments('id');
-            $table->binary('background_data')->nullable();
+            $table->string('background_data')->nullable();
             $table->string('template_text')->nullable();
             $table->float('hero_x_position')->nullable();
             $table->float('hero_y_position')->nullable();

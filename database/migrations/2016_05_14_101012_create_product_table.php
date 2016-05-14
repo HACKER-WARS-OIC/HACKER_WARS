@@ -15,12 +15,19 @@ class CreateProductTable extends Migration
         //
         Schema::create('puroduct', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('face_data_id')->nullable();
-            $table->integer('panel_id1')->nullable();
-            $table->integer('panel_id2')->nullable();
-            $table->integer('panel_id3')->nullable();
-            $table->integer('panel_id4')->nullable();
+            $table->integer('face_data_id')->nullable()->unsigned();
+            $table->integer('panel_id1')->nullable()->unsigned();
+            $table->integer('panel_id2')->nullable()->unsigned();
+            $table->integer('panel_id3')->nullable()->unsigned();
+            $table->integer('panel_id4')->nullable()->unsigned();
+            
+            $table->foreign('face_data_id')->references('id')->on('face_photo');
+            $table->foreign('panel_id1')->references('id')->on('panel');
+            $table->foreign('panel_id2')->references('id')->on('panel');
+            $table->foreign('panel_id3')->references('id')->on('panel');
+            $table->foreign('panel_id4')->references('id')->on('panel');
         });
+        Schema::rename('puroduct', 'product');
     }
 
     /**
@@ -31,5 +38,6 @@ class CreateProductTable extends Migration
     public function down()
     {
         //
+        Schema::drop('product');
     }
 }

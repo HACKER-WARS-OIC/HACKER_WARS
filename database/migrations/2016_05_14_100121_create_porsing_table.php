@@ -15,8 +15,10 @@ class CreatePorsingTable extends Migration
         //
         Schema::create('porsing', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('hero_id')->nullable();
+            $table->integer('hero_id')->nullable()->unsigned();
             $table->binary('porsing_data')->nullable();
+
+            $table->foreign('hero_id')->references('id')->on('heros');
         });
     }
 

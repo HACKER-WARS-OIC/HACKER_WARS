@@ -16,4 +16,6 @@ Route::get('/', function () {
     return view('book');
 });
 
+Route::post('/test_print', 'UserController@test_print');
+
 Route::post('/test_regi', 'UserController@test_regi');
