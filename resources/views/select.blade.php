@@ -5,18 +5,19 @@
 @endsection
 
 @section('content')
-    <div class="content-left">
-      <div>
+    <div>
+      <div id="text">
         <span id="name">ひでやす</span>がなりたい<br>
         ヒーローを選んでね！
       </div>
       <div id="selectChara">
-        <span class="glyphicon glyphicon-triangle-left"></span>スパイダーマン<span class="glyphicon glyphicon-triangle-right"></span>
+        <select class="form-control" name="">
+          <option value="option">スパイダーマン</option>
+          <option value="option">スパイダーマン</option>
+        </select>
       </div>
-
+      <div class="button">
+        <button class="btn btn-default">決定</button>
       </div>
-    </div>
-    <div class="">
-
     </div>
 @endsection

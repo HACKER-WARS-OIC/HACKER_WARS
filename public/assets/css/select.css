@@ -1,3 +1,24 @@
-#selectChara{
+#selectChara,#text{
   font-size: 26px;
+}
+ .content > div > div{
+   text-align: center;
+ }
+
+.clear{
+  clear: both;
+}
+
+#selectChara{
+  margin-top: 50px;
+
+}
+
+#selectChara  select{
+  margin: 0 auto;
+  width: 16em;
+}
+
+.button {
+  margin-top: 25px;
 }

@@ -1,0 +1,22 @@
+#comic{
+  width: 480px;
+  height: 260px;
+  background-color: red;
+  margin: 0 auto;;
+}
+
+.content{
+  margin-top: 50px;
+}
+
+.next{
+  float: right;
+}
+
+.preview{
+  float: left;
+}
+
+#narration{
+  margin-top: 5px;
+}
