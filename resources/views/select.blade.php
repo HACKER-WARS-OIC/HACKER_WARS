@@ -5,11 +5,11 @@
 @endsection
 
 @section('content')
-    <div>
-      <div id="text">
+      <h1 id="info">スマホを横向きにしてね</h1>
+      <h1 id="text">
         <span id="name">ひでやす</span>がなりたい<br>
         ヒーローを選んでね！
-      </div>
+      </h1>
       <div id="selectChara">
         <select class="form-control" name="">
           <option value="option">スパイダーマン</option>
@@ -19,5 +19,5 @@
       <div class="button">
         <button class="btn btn-default">決定</button>
       </div>
-    </div>
+
 @endsection

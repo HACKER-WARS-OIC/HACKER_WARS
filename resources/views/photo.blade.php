@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-    <div class="info text-danger">スマホを縦向きにしてね</div>
-    <h1>新しいヒーローの顔を見せて！</h1>
+    <h1 id="info">スマホを縦向きにしてね</h1>
+    <h1>君の顔を見せて！</h1>
     <div id="photoArea">
     </div>
     <div id="takePhoto">

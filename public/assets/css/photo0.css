@@ -16,19 +16,8 @@
   margin-top: 25px;
 }
 
-#info{
-  display: none;
-}
-
-@media screen and (orientation: portrait) {
-
-}
-
 @media screen and (orientation: landscape) {
-  #content *:not(#info){
-    display: none;
-  }
-  #info{
+  .info{
     display: block;
   }
 }

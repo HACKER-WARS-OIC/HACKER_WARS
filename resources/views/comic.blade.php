@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    <h1 id="info">スマホを横向きにしてね</h1>
     <div id="comic">
 
     </div>

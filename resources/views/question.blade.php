@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    <h1 id="info">スマホを横向きにしてね</h1>
     <h1>ヒーローになったら何したい？</h1>
     <div class="buttons">
       <div class="">

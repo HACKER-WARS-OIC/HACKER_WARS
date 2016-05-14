@@ -20,3 +20,20 @@
 #narration{
   margin-top: 5px;
 }
+
+#info{
+  display: none;
+}
+
+@media screen and (orientation: portrait) {
+  #content *:not(#info){
+    display: none;
+  }
+  #info{
+    display: block;
+  }
+}
+
+@media screen and (orientation: landscape) {
+
+}

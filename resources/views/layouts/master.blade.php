@@ -16,8 +16,13 @@
     @yield('stylesheet')
   </head>
   <body>
-    <div class="content">
-      <div>
+    <div id="background">
+      <div id="child">
+        <img  src="{{{asset('/assets/img/chiled.png')}}}" alt="" />
+      </div>
+    </div>
+    <div id="content-outer">
+      <div id="content">
         @section('content')
 
         @show
