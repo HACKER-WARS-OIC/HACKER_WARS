@@ -2,14 +2,14 @@
   text-align: center;
 }
 
-#info{
-  display: none;
-}
 .buttons{
   margin-top: 50px;
 }
 .buttons div{
   margin-top: 30px;
+}
+#info{
+  display: none;
 }
 
 @media screen and (orientation: portrait) {

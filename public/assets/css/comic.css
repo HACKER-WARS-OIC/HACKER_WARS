@@ -1,8 +1,8 @@
 #comic{
   width: 480px;
-  height: 260px;
-  background-color: red;
-  margin: 0 auto;;
+  height: 270px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .content{
