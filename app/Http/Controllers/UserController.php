@@ -99,7 +99,7 @@ class UserController extends Controller
 			$serch_result = DB::table('background_data')->where('id', $serch_result->background_id)->first();
 
 			$replaceText = str_replace("^", session('user_name'), $serch_result->template_text);
-			return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText);
+			return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText)->with('face_data',session('face_data'));
 		}
 
 		return view('question');
