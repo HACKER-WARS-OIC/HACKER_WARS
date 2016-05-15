@@ -17,6 +17,9 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
+use Illuminate\Http\RedirectResponse;
+
+use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
@@ -31,7 +34,7 @@ class UserController extends Controller
 		//ふっちーまち
 	}
 
-	public function set_name(){ 
+	public function set_name(){
 		$heros = DB::table('heros')->get();
 
 
@@ -47,16 +50,16 @@ class UserController extends Controller
 		return view('select')->with('name',$name)->with('heros',$heros);
 	}
 
-	public function set_hero(){ 
+	public function set_hero(){
 		session(['user_hero_id' => Input::get('hero')]);
 		return view('question');
 	}
 
-	public function set_answer(){ 
+	public function set_answer(){
 		session(['answer_count' => session('answer_count')+1]);
 
 		$point = preg_split("/[\s,]+/", Input::get('point'));
-		
+
 		if($point[0] == 'justice'){
 			session(['justice_point' => session('justice_point')+$point[1]]);
 		}
@@ -68,7 +71,7 @@ class UserController extends Controller
 		if(session('answer_count')>2){
 
 			session(['answer_count' => 1]);
-			
+
 			if(session('save_point')>99){
 				session(['story_id' => 2]);
 			} else{
@@ -94,7 +97,7 @@ class UserController extends Controller
 			$serch_result = DB::table('product')->where('id', session('user_book_id'))->first();
 			$serch_result = DB::table('panel')->where('id', $serch_result->panel_id1)->first();
 			$serch_result = DB::table('background_data')->where('id', $serch_result->background_id)->first();
-			
+
 			$replaceText = str_replace("^", session('user_name'), $serch_result->template_text);
 			return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText);
 		}
@@ -132,29 +135,50 @@ class UserController extends Controller
     	$page = Input::get('page');
     	$back = $page-1;
     	$next = $page+1;
-    	
+
     	$page= "panel_id".$page;
 
     	$serch_result = DB::table('product')->where('id', session('user_book_id'))->first();
-		$serch_result = DB::table('panel')->where('id', $serch_result->$page)->first();
-		$serch_result = DB::table('background_data')->where('id', $serch_result->background_id)->first();
+			$serch_result = DB::table('panel')->where('id', $serch_result->$page)->first();
+			$serch_result = DB::table('background_data')->where('id', $serch_result->background_id)->first();
     	$replaceText = str_replace("^", session('user_name'), $serch_result->template_text);
-    	return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText);
+    	return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText)->with('face_data',session('face_data'));
     }
 
     public function next(){
     	$page = Input::get('page');
     	$back = $page-1;
     	$next = $page+1;
-    	
+
     	$page= "panel_id".$page;
 
     	$serch_result = DB::table('product')->where('id', session('user_book_id'))->first();
-		$serch_result = DB::table('panel')->where('id', $serch_result->$page)->first();
-		$serch_result = DB::table('background_data')->where('id', $serch_result->background_id)->first();
+			$serch_result = DB::table('panel')->where('id', $serch_result->$page)->first();
+			$serch_result = DB::table('background_data')->where('id', $serch_result->background_id)->first();
     	$replaceText = str_replace("^", session('user_name'), $serch_result->template_text);
-    	return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText);
+    	return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText)->with('face_data',session('face_data'));
     }
+
+		public function face_upload(Request $request){
+			$image = Input::file('img');
+			//return var_dump($image);
+		  // ファイル名を生成し画像をアップロード
+		  $name = md5(sha1(uniqid(mt_rand(), true))).'.'.$image->getClientOriginalExtension();
+			$img = Image::make( $image );
+		  $upload = $img->resize(320,240)->save('media/' . $name);
+			$id = DB::table('face_photo')->insertGetId(
+    		array('face_data' => './assets/media/' . $name, 'user_name' => null)
+			);
+			session(['face_data' => './assets/media/' . $name]);
+		  // アップロード成功のメッセージを定義
+		  $data = array(
+		    'success' => '画像がアップロードされました',
+		  );
+
+		  // メッセージをセッションに格納しリダイレクト
+		  return \Redirect::to(\URL::to('/input_name'));
+		}
+
 
 
 }

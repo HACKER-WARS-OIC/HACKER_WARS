@@ -1,0 +1,39 @@
+#comic{
+  width: 480px;
+  height: 270px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.content{
+  margin-top: 50px;
+}
+
+.next{
+  float: right;
+}
+
+.preview{
+  float: left;
+}
+
+#narration{
+  margin-top: 5px;
+}
+
+#info{
+  display: none;
+}
+
+@media screen and (orientation: portrait) {
+  #content *:not(#info){
+    display: none;
+  }
+  #info{
+    display: block;
+  }
+}
+
+@media screen and (orientation: landscape) {
+
+}

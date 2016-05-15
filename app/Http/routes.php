@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Input;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
     return view('landing');
 });
@@ -23,6 +27,8 @@ Route::get('/be_hero', function () {
 Route::get('/input_name', function () {
     return view('who');
 });
+
+Route::post('/face_upload','UserController@face_upload');
 
 Route::post('/preview', 'UserController@preview');
 

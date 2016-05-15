@@ -5,16 +5,14 @@
 @endsection
 
 @section('content')
-    <div class="info text-danger">スマホを縦向きにしてね</div>
-    <h1>新しいヒーローの顔を見せて！</h1>
-    <div id="photoArea">
-    </div>
-    <div>
-    	<form action="/input_name" method="get">
-            <input type="submit" value="名前をいれる">
-        </form>
-    </div>
-    <div id="takePhoto">
-      <button  class="btn btn-default btn-lg"><span class="glyphicon glyphicon-camera"></span></button>
-    </div>
+    <h1 id="info">スマホを横向きにしてね</h1>
+    <h1>君の写真を載せて！</h1>
+    <form action="/face_upload" method="post" enctype="multipart/form-data">
+      <div id="inputFile">
+        <input class="btn btn-default" type="file" name="img" value="">
+      </div>
+      <div id="inputSubmit">
+        <input class="btn btn-default" type="submit" name="name" value="送信！">
+      </div>
+    </form>
 @endsection

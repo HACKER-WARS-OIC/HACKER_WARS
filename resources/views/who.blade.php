@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    <h1 id="info">スマホを横向きにしてね</h1>
     <h1>君の名前を教えて！</h1>
     <form action="/select" method="post">
 	    <div id="inputName">
