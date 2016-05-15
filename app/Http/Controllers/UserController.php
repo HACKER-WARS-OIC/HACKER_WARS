@@ -78,7 +78,8 @@ class UserController extends Controller
 			$serch_result = DB::table('background_data')->where('id', $serch_result->background_id)->first();
 
 			$replaceText = str_replace("^", session('user_name'), $serch_result->template_text);
-			return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText)->with('face_data',session('face_data'));
+
+			return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText)->with('face_data',session('face_data'))->with('left',$serch_result->face_x_position)->with('top',$serch_result->face_y_position);
 	}
 
 	public function set_answer(){
@@ -91,6 +92,9 @@ class UserController extends Controller
 
 		if($point[0] == 'justice'){
 			session(['justice_point' => session('justice_point')+$point[1]]);
+
+			return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText)->with('face_data',session('face_data'))->with('left',$serch_result->face_x_position)->with('top',$serch_result->face_y_position);
+
 		}
 
 		if($point[0] == 'save'){
@@ -150,7 +154,7 @@ class UserController extends Controller
 			$serch_result = DB::table('panel')->where('id', $serch_result->$page)->first();
 			$serch_result = DB::table('background_data')->where('id', $serch_result->background_id)->first();
     	$replaceText = str_replace("^", session('user_name'), $serch_result->template_text);
-    	return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText)->with('face_data',session('face_data'));
+    	return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText)->with('face_data',session('face_data'))->with('left',$serch_result->face_x_position)->with('top',$serch_result->face_y_position);
     }
 
     public function next(){
@@ -164,7 +168,7 @@ class UserController extends Controller
 			$serch_result = DB::table('panel')->where('id', $serch_result->$page)->first();
 			$serch_result = DB::table('background_data')->where('id', $serch_result->background_id)->first();
     	$replaceText = str_replace("^", session('user_name'), $serch_result->template_text);
-    	return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText)->with('face_data',session('face_data'));
+    	return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText)->with('face_data',session('face_data'))->with('left',$serch_result->face_x_position)->with('top',$serch_result->face_y_position);
     }
 
 		public function face_upload(Request $request){
@@ -173,11 +177,11 @@ class UserController extends Controller
 		  // ファイル名を生成し画像をアップロード
 		  $name = md5(sha1(uniqid(mt_rand(), true))).'.'.$image->getClientOriginalExtension();
 			$img = Image::make( $image );
-		  $upload = $img->resize(320,240)->save('media/' . $name);
+		  $upload = $img->resize(168,300)->save('media/' . $name);
 			$id = DB::table('face_photo')->insertGetId(
-    		array('face_data' => './assets/media/' . $name, 'user_name' => null)
+    		array('face_data' => 'media/' . $name, 'user_name' => null)
 			);
-			session(['face_data' => './assets/media/' . $name]);
+			session(['face_data' => 'media/' . $name]);
 		  // アップロード成功のメッセージを定義
 		  $data = array(
 		    'success' => '画像がアップロードされました',

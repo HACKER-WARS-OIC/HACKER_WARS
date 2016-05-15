@@ -23,6 +23,7 @@ h1#title:befor{
   height: 100vh;
   position: relative;
   overflow: hidden;
+  z-index:0;
   background-color: rgb(255, 204, 102);
 }
 
@@ -42,6 +43,7 @@ h1#title:befor{
 	margin: auto;
 	width: 80vw;
 	height: 80vh;
+  z-index:1;
 	background: rgba(255, 255, 179, 0.6);
 }
 
