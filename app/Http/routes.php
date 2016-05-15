@@ -24,7 +24,11 @@ Route::get('/input_name', function () {
     return view('who');
 });
 
-Route::post('/question', 'UserController@set_hero');
+Route::post('/preview', 'UserController@preview');
+
+Route::post('/question', 'UserController@set_answer');
+
+Route::post('/next', 'UserController@next');
 
 Route::post('/next_question', 'UserController@set_answer');
 

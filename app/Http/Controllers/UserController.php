@@ -35,12 +35,13 @@ class UserController extends Controller
 		$heros = DB::table('heros')->get();
 
 
-		session(['user_hero_id' => 1]);
+		session(['user_hero_id' => 2]);
 
 
 		if(Input::get('name')==""){
 			return view('landing');
 		}
+
 		session(['user_name' => Input::get('name')]);
 		$name = session('user_name');
 		return view('select')->with('name',$name)->with('heros',$heros);
@@ -64,16 +65,40 @@ class UserController extends Controller
 			session(['save_point' => session('save_point')+$point[1]]);
 		}
 
-		if(session('answer_count')>5){
+		if(session('answer_count')>2){
+
+			session(['answer_count' => 1]);
 			
-			/*if(session('answer_count')>99){
-
+			if(session('save_point')>99){
+				session(['story_id' => 2]);
 			} else{
+				session(['story_id' => 1]);
+			}
+			$back =0;
+			$next =2;
+			$panels = DB::table('panel')->where('story_id',session('story_id'))->where('hero_id',session('user_hero_id'))->get();
+			$count=0;
+			foreach ($panels as $panel)
+			{
+				$page[$count] = $panel->id;
+			    $count++;
+			}
 
-			}*/
+			$id = DB::table('product')->insertGetId(
+	    	['face_data_id' => 1,'panel_id1' => $page[0], 'panel_id2' => $page[1],'panel_id3' => $page[2],'panel_id4' => $page[3]]
+			);
 
-			return view('comic');
+			session(['user_book_id' => $id]);
+
+
+			$serch_result = DB::table('product')->where('id', session('user_book_id'))->first();
+			$serch_result = DB::table('panel')->where('id', $serch_result->panel_id1)->first();
+			$serch_result = DB::table('background_data')->where('id', $serch_result->background_id)->first();
+			
+			$replaceText = str_replace("^", session('user_name'), $serch_result->template_text);
+			return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText);
 		}
+
 		return view('question');
 	}
 
@@ -81,6 +106,15 @@ class UserController extends Controller
     {
     	//book登録予定処理
         $page = Input::get('page');
+        $panels = DB::table('panel')->where('story_id',session('story_id'))->where('hero_id',session('user_hero_id'))->get();
+
+        $count=0;
+		foreach ($panels as $panel)
+		{
+			$page[$count] = $panel->id;
+		    $count++;
+		}
+
 		$id = DB::table('product')->insertGetId(
 	    	['face_data_id' => 1,'panel_id1' => $page[0], 'panel_id2' => $page[1],'panel_id3' => $page[2],'panel_id4' => $page[3]]
 		);
@@ -89,20 +123,37 @@ class UserController extends Controller
 
 
 		$serch_result = DB::table('product')->where('id', session('user_book_id'))->first();
-	
-		//bookのページを出すための処理
-		$count = -2;//ページ数を出すための処理
-		foreach ($serch_result as $result)
-		{
-		    $count++;
-		}
+		$back =0;
+		$next =2;
+		return view('comic')->with('back',$back)->with('next',$next);
+    }
 
-		for ($i=1;$i<=$count;$i++){
-			$user_book_id = 'user_book_id';
-			$panel_id = "panel_id".$i;
-			session([$user_book_id.$i => $serch_result->$panel_id]);
-			echo $i."ページ目の画像のidは".session($user_book_id.$i).'<br>';
-		}
+    public function preview(){
+    	$page = Input::get('page');
+    	$back = $page-1;
+    	$next = $page+1;
+    	
+    	$page= "panel_id".$page;
+
+    	$serch_result = DB::table('product')->where('id', session('user_book_id'))->first();
+		$serch_result = DB::table('panel')->where('id', $serch_result->$page)->first();
+		$serch_result = DB::table('background_data')->where('id', $serch_result->background_id)->first();
+    	$replaceText = str_replace("^", session('user_name'), $serch_result->template_text);
+    	return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText);
+    }
+
+    public function next(){
+    	$page = Input::get('page');
+    	$back = $page-1;
+    	$next = $page+1;
+    	
+    	$page= "panel_id".$page;
+
+    	$serch_result = DB::table('product')->where('id', session('user_book_id'))->first();
+		$serch_result = DB::table('panel')->where('id', $serch_result->$page)->first();
+		$serch_result = DB::table('background_data')->where('id', $serch_result->background_id)->first();
+    	$replaceText = str_replace("^", session('user_name'), $serch_result->template_text);
+    	return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText);
     }
 
 
