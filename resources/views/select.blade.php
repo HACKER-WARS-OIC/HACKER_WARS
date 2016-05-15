@@ -19,7 +19,7 @@
         </select>
       </div>
       <div class="button">
-        <button class="btn btn-default">決定</button>
+        <button class="btn btn-default" type="submit">決定</button>
       </div>
     </form>
 @endsection

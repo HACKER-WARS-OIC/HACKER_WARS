@@ -36,10 +36,7 @@ class UserController extends Controller
 
 	public function set_name(){
 		$heros = DB::table('heros')->get();
-
-
-		session(['user_hero_id' => 2]);
-
+		session(['user_hero_id' => Input::get('hero')]);
 
 		if(Input::get('name')==""){
 			return view('landing');
@@ -55,37 +52,19 @@ class UserController extends Controller
 		return view('question');
 	}
 
-	public function set_answer(){
-		session(['answer_count' => session('answer_count')+1]);
-
-		$point = preg_split("/[\s,]+/", Input::get('point'));
-
-		if($point[0] == 'justice'){
-			session(['justice_point' => session('justice_point')+$point[1]]);
-		}
-
-		if($point[0] == 'save'){
-			session(['save_point' => session('save_point')+$point[1]]);
-		}
-
-		if(session('answer_count')>2){
-
-			session(['answer_count' => 1]);
-
-			if(session('save_point')>99){
-				session(['story_id' => 2]);
-			} else{
-				session(['story_id' => 1]);
-			}
-			$back =0;
+	public function go_comic(){
+		$back =0;
 			$next =2;
 			$panels = DB::table('panel')->where('story_id',session('story_id'))->where('hero_id',session('user_hero_id'))->get();
 			$count=0;
+			$page = array();
 			foreach ($panels as $panel)
 			{
 				$page[$count] = $panel->id;
+
 			    $count++;
 			}
+		
 
 			$id = DB::table('product')->insertGetId(
 	    	['face_data_id' => 1,'panel_id1' => $page[0], 'panel_id2' => $page[1],'panel_id3' => $page[2],'panel_id4' => $page[3]]
@@ -100,7 +79,36 @@ class UserController extends Controller
 
 			$replaceText = str_replace("^", session('user_name'), $serch_result->template_text);
 			return view('comic')->with('back',$back)->with('next',$next)->with('path',$serch_result->background_data)->with('txt',$replaceText)->with('face_data',session('face_data'));
+	}
+
+	public function set_answer(){
+		//return var_dump(Input::get('hero'));
+		session(['user_hero_id' => Input::get('hero')]);
+		//return session('user_hero_id');
+		session(['answer_count' => session('answer_count')+1]);
+
+		$point = preg_split("/[\s,]+/", Input::get('point'));
+
+		if($point[0] == 'justice'){
+			session(['justice_point' => session('justice_point')+$point[1]]);
 		}
+
+		if($point[0] == 'save'){
+			session(['save_point' => session('save_point')+$point[1]]);
+		}
+
+		//if(session('answer_count')>2){
+
+			session(['answer_count' => 1]);
+
+			if(session('save_point')>99){
+				session(['story_id' => 2]);
+			} else{
+				session(['story_id' => 1]);
+			}
+
+			
+		//}
 
 		return view('question');
 	}

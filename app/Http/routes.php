@@ -36,7 +36,7 @@ Route::post('/question', 'UserController@set_answer');
 
 Route::post('/next', 'UserController@next');
 
-Route::post('/next_question', 'UserController@set_answer');
+Route::post('/next_question', 'UserController@go_comic');
 
 Route::post('/select', 'UserController@set_name');
 
