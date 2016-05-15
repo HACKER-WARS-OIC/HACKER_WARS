@@ -128,7 +128,7 @@ class UserController extends Controller
 		$serch_result = DB::table('product')->where('id', session('user_book_id'))->first();
 		$back =0;
 		$next =2;
-		return view('comic')->with('back',$back)->with('next',$next);
+		return view('comic')->with('back',$back)->with('next',$next)->with('face_data',session('face_data'));
     }
 
     public function preview(){
